@@ -5,7 +5,7 @@
     </div>
     <input type="file" @input="inputImage">
     <tools-panel @createTextElement="createTextElement"/>
-    <elements-list :state="state" @removeText="removeText" @updatePosition="updateTextPosition"/>
+    <elements-list :state="state" @removeText="removeText" @updatePosition="updateTextPosition" @updateText="updateTextContent"/>
   </div>
 </template>
 
@@ -65,6 +65,10 @@ function createTextElement(text) {
  */
 function updateTextPosition(value, key, axis) {
   state.texts[key][axis] = value
+}
+
+function updateTextContent(value, key) {
+  state.texts[key].text = value
 }
 
 /**

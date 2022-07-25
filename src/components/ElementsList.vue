@@ -9,7 +9,7 @@
       </div>
       <div :class="$style['elements-list-texts-element']" v-for="(element, key) in props.state.texts" :key="key">
         <span :class="$style['elements-list-texts-element__key']">{{ key }}</span>
-        <span :class="$style['elements-list-texts-element__value']">{{ element.text }}</span>
+        <input :class="[$style['elements-list-texts-element__value'], $style['elements-list__input']]" @input="updateText($event, key)" :value="element.text"/>
         <input :class="[$style['elements-list-texts-element__x'], $style['elements-list__input']]" @input="updatePosition($event, key, 'x')" :value="element.x"/>
         <input :class="[$style['elements-list-texts-element__y'], $style['elements-list__input']]" @input="updatePosition($event, key, 'y')" :value="element.y"/>
         <span :class="$style['elements-list-texts-element__remove']" @click="$emit('removeText', key)">Remove</span>
@@ -22,7 +22,7 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps(['state'])
-const emit = defineEmits(['updatePosition', 'removeText'])
+const emit = defineEmits(['updatePosition', 'updateText', 'removeText'])
 
 /**
  * Call to update position of text
@@ -32,6 +32,15 @@ const emit = defineEmits(['updatePosition', 'removeText'])
  */
 function updatePosition(event, key, axis) {
   emit('updatePosition', event.target.value, key, axis)
+}
+
+/**
+ * Call to update text content
+ * @param event {Event} - Input event
+ * @param key {Number} - Text key
+ */
+function updateText(event, key) {
+  emit('updateText', event.target.value, key)
 }
 </script>
 

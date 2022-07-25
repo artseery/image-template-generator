@@ -19,7 +19,7 @@ let text = ref('')
 .tools-panel
   display: flex
   flex-direction: column
-  padding: 16px
+  padding: 16px 0
   &-element
     display: flex
   &-text

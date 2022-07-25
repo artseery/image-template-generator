@@ -2,21 +2,36 @@
 let key = 0
 /**
  * Creates text elements
- * @param ctx {HTMLElement} ctx - Canvas context
- * @param font {String} font style - Font family
- * @param text {String} text - Inner text
- * @param fontSize {Number} font-size - Font size
- * @param x {Number} position-x - position X
- * @param y {Number} position-y -  position Y
+ * @param font {String} - Font family
+ * @param text {String} - Inner text
+ * @param fontSize {Number} - Font size
+ * @param color {String} - Font color
+ * @param x {Number} - Position X
+ * @param y {Number} - Position Y
  */
-async function createText(ctx, font = 'Roboto', text = 'sample text', fontSize = 40, x= 0, y = 20) {
-    ctx.font = `${fontSize}px ${font}`
-    ctx.fillText(`${text}`, x, y)
+async function createText(font = 'Roboto', text = 'sample text', fontSize = 40, color = '#000', x= 0, y = 20) {
     return {
-        key: key++, x, y, text
+        key: key++, x, y, text, font, fontSize, color
     }
 }
 
+/**
+ * Draw text on canvas
+ * @param ctx {HTMLElement} - Canvas context
+ * @param font {String} - Font family
+ * @param text {String} - Inner text
+ * @param color {String} - Font color
+ * @param fontSize {Number} - Font size
+ * @param x {Number} - Position X
+ * @param y {Number} - Position Y
+ */
+function drawText(ctx, font, text, color, fontSize, x, y) {
+    ctx.fillStyle = color
+    ctx.font = `${fontSize}px ${font}`
+    ctx.fillText(`${text}`, x, y)
+}
+
 export {
-    createText
+    createText,
+    drawText
 }

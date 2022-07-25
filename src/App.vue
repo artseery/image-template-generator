@@ -5,7 +5,7 @@
     </div>
     <input type="file" @input="inputImage">
     <tools-panel @createTextElement="createTextElement"/>
-    <elements-list :state="state" @removeText="removeText"/>
+    <elements-list :state="state" @removeText="removeText" @updatePosition="updateTextPosition"/>
   </div>
 </template>
 
@@ -27,6 +27,11 @@ let image = reactive({
 })
 let ctx, canvas
 
+/**
+ * Get canvas, setup it and start renderer
+ * @param event {Event} - File loader event to get file from input
+ * @return {Promise<void>}
+ */
 async function inputImage(event) {
   canvas = document.querySelector('#canvas')
   ctx = canvas.getContext('2d')
@@ -34,6 +39,11 @@ async function inputImage(event) {
   await setupCanvas(canvas, image.width, image.height)
   await createRenderer(state, ctx, image)
 }
+
+/**
+ * Creates new text element
+ * @param text {String} - New text value
+ */
 function createTextElement(text) {
   createText(null, text).then(result => {
     state.texts[result.key] = {
@@ -46,9 +56,25 @@ function createTextElement(text) {
     }
   })
 }
+
+/**
+ * Updates text position
+ * @param value {Number, String} - New position value
+ * @param key {Number} - Text key
+ * @param axis {String} - Axis of move
+ */
+function updateTextPosition(value, key, axis) {
+  state.texts[key][axis] = value
+}
+
+/**
+ * Removes text from canvas
+ * @param key {Number} - Text key
+ */
 function removeText(key) {
   delete state.texts[key]
 }
+
 onUnmounted(() => {
   removeRenderer()
 })

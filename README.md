@@ -1,4 +1,4 @@
-# image-template-generator
+# image-template-generator (WIP)
 
 ## Project setup
 ```

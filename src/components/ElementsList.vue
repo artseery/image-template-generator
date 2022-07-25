@@ -6,12 +6,14 @@
         <span :class="$style['elements-list-texts-element__value']">Value</span>
         <span :class="$style['elements-list-texts-element__x']">X</span>
         <span :class="$style['elements-list-texts-element__y']">Y</span>
+        <span :class="$style['elements-list-texts-element__color']">Color</span>
       </div>
       <div :class="$style['elements-list-texts-element']" v-for="(element, key) in props.state.texts" :key="key">
         <span :class="$style['elements-list-texts-element__key']">{{ key }}</span>
         <input :class="[$style['elements-list-texts-element__value'], $style['elements-list__input']]" @input="updateText($event, key)" :value="element.text"/>
         <input :class="[$style['elements-list-texts-element__x'], $style['elements-list__input']]" @input="updatePosition($event, key, 'x')" :value="element.x"/>
         <input :class="[$style['elements-list-texts-element__y'], $style['elements-list__input']]" @input="updatePosition($event, key, 'y')" :value="element.y"/>
+        <input :class="[$style['elements-list-texts-element__color'], $style['elements-list__input']]" @input="updateColor($event, key)" :value="element.color"/>
         <span :class="$style['elements-list-texts-element__remove']" @click="$emit('removeText', key)">Remove</span>
       </div>
     </div>
@@ -22,7 +24,7 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps(['state'])
-const emit = defineEmits(['updatePosition', 'updateText', 'removeText'])
+const emit = defineEmits(['updatePosition', 'updateText', 'updateColor', 'removeText'])
 
 /**
  * Call to update position of text
@@ -41,6 +43,15 @@ function updatePosition(event, key, axis) {
  */
 function updateText(event, key) {
   emit('updateText', event.target.value, key)
+}
+
+/**
+ * Call to update text color
+ * @param event {Event} - Input event
+ * @param key {Number} - Text key
+ */
+function updateColor(event, key) {
+  emit('updateColor', event.target.value, key)
 }
 </script>
 

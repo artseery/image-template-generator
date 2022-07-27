@@ -7,6 +7,8 @@
         <span :class="$style['elements-list-texts-element__x']">X</span>
         <span :class="$style['elements-list-texts-element__y']">Y</span>
         <span :class="$style['elements-list-texts-element__color']">Color</span>
+        <span :class="$style['elements-list-texts-element__weight']">Font weight</span>
+        <span :class="$style['elements-list-texts-element__style']">Font style</span>
       </div>
       <div :class="$style['elements-list-texts-element']" v-for="(element, key) in props.state.texts" :key="key">
         <span :class="$style['elements-list-texts-element__key']">{{ key }}</span>
@@ -14,6 +16,11 @@
         <input :class="[$style['elements-list-texts-element__x'], $style['elements-list__input']]" @input="updatePosition($event, key, 'x')" :value="element.x"/>
         <input :class="[$style['elements-list-texts-element__y'], $style['elements-list__input']]" @input="updatePosition($event, key, 'y')" :value="element.y"/>
         <input :class="[$style['elements-list-texts-element__color'], $style['elements-list__input']]" @input="updateColor($event, key)" :value="element.color"/>
+        <input :class="[$style['elements-list-texts-element__weight'], $style['elements-list__input']]" @input="updateFontWeight($event, key)" :value="element.fontWeight"/>
+        <select :class="[$style['elements-list-texts-element__style'], $style['elements-list__select']]" @input="updateFontStyle($event, key)" :value="element.fontStyle">
+          <option value="normal">normal</option>
+          <option value="italic">italic</option>
+        </select>
         <span :class="$style['elements-list-texts-element__remove']" @click="$emit('removeText', key)">Remove</span>
       </div>
     </div>
@@ -24,7 +31,7 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps(['state'])
-const emit = defineEmits(['updatePosition', 'updateText', 'updateColor', 'removeText'])
+const emit = defineEmits(['updatePosition', 'updateText', 'updateColor', 'removeText', 'updateFontWeight', 'updateFontStyle'])
 
 /**
  * Call to update position of text
@@ -53,6 +60,24 @@ function updateText(event, key) {
 function updateColor(event, key) {
   emit('updateColor', event.target.value, key)
 }
+
+/**
+ * Call to update text weight
+ * @param event {Event} - Input event
+ * @param key {Number} - Text key
+ */
+function updateFontWeight(event, key) {
+  emit('updateFontWeight', event.target.value, key)
+}
+
+/**
+ * Call to update text style
+ * @param event
+ * @param key
+ */
+function updateFontStyle(event, key) {
+  emit('updateFontStyle', event.target.value, key)
+}
 </script>
 
 <style lang="sass" module scoped>
@@ -76,6 +101,12 @@ function updateColor(event, key) {
         width: 40px
         display: flex
         justify-content: center
+      &__color
+        width: 100px
+      &__weight
+        width: 100px
+      &__style
+        width: 100px
       &__remove
         color: #cb0101
         cursor: pointer

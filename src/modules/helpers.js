@@ -8,7 +8,7 @@ function clearCanvas(ctx, image) {
 function drawTexts(ctx, texts) {
     // eslint-disable-next-line no-unused-vars
     for (const [key, text] of Object.entries(texts)) {
-        drawText(ctx, text.font, text.text, text.color, text.fontSize, text.x, text.y)
+        drawText(ctx, text.font, text.text, text.color, text.fontSize, text.x, text.y, text.fontWeight, text.fontStyle)
     }
 }
 

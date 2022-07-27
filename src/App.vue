@@ -10,6 +10,8 @@
                    @updatePosition="updateTextPosition"
                    @updateText="updateTextContent"
                    @updateColor="updateTextColor"
+                   @updateFontWeight="updateTextFontWeight"
+                   @updateFontStyle="updateTextFontStyle"
     />
   </div>
 </template>
@@ -57,7 +59,9 @@ function createTextElement(text) {
       text: result.text,
       color: result.color,
       font: result.font,
-      fontSize: result.fontSize
+      fontSize: result.fontSize,
+      fontWeight: result.fontWeight,
+      fontStyle: result.fontStyle
     }
   })
 }
@@ -88,6 +92,24 @@ function updateTextContent(value, key) {
  */
 function updateTextColor(value, key) {
   state.texts[key].color = value
+}
+
+/**
+ * Updates text weight
+ * @param value {String} - New text weight
+ * @param key - Text key
+ */
+function updateTextFontWeight(value, key) {
+  state.texts[key].fontWeight = value
+}
+
+/**
+ * Updates text style
+ * @param value {String} - New text style
+ * @param key - Text key
+ */
+function updateTextFontStyle(value, key) {
+  state.texts[key].fontStyle = value
 }
 
 /**

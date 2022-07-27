@@ -8,10 +8,12 @@ let key = 0
  * @param color {String} - Font color
  * @param x {Number} - Position X
  * @param y {Number} - Position Y
+ * @param fontWeight {Number} - Font weight
+ * @param fontStyle {String} - Font style
  */
-async function createText(font = 'Roboto', text = 'sample text', fontSize = 40, color = '#000', x= 0, y = 20) {
+async function createText(font = 'Roboto', text = 'sample text', fontSize = 40, color = '#000', x= 0, y = 20, fontWeight = 400, fontStyle = 'normal') {
     return {
-        key: key++, x, y, text, font, fontSize, color
+        key: key++, x, y, text, font, fontSize, color, fontWeight, fontStyle
     }
 }
 
@@ -24,10 +26,12 @@ async function createText(font = 'Roboto', text = 'sample text', fontSize = 40, 
  * @param fontSize {Number} - Font size
  * @param x {Number} - Position X
  * @param y {Number} - Position Y
+ * @param fontWeight {Number} - Font weight
+ * @param fontStyle {String} - Font style
  */
-function drawText(ctx, font, text, color, fontSize, x, y) {
+function drawText(ctx, font, text, color, fontSize, x, y, fontWeight, fontStyle= 'normal') {
     ctx.fillStyle = color
-    ctx.font = `${fontSize}px ${font}`
+    ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px ${font}`
     ctx.fillText(`${text}`, x, y)
 }
 
